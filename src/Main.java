@@ -17,11 +17,15 @@ public class Main {
         g.addDirectedEdge("hallway", "DO NOT ENTER");
         g.addDirectedEdge("DO NOT ENTER", "hall");
 
+        g.getNode("hall").addItem("Key");
+        g.getNode("bedroom").addItem("Vase");
+        g.getNode("definitely not a room").addItem("GOD KILLER");
+        g.getNode("DO NOT ENTER").addItem("Discarded Wrappers");
+
 
         //"game loop" where I get user input and move the player
-
-        Graph.Node currentRoom = g.getNode("hall");
-        Graph.Node prevRoom = currentRoom;
+        Player p = new Player("Your Boy", "The OG");
+        p.setCurrentRoom(g.getNode("hall"));
 
         String response = "";
         Scanner in = new Scanner(System.in);
@@ -29,27 +33,40 @@ public class Main {
         do{
             //display the room and the exits
             try {
+                Graph.Node currentRoom = p.getCurrentRoom();
+                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 System.out.println("You are currently in the " + currentRoom.getName());
                 System.out.println("What would you like to do?");
-                System.out.println("COMMANDS: go, look, add, link, quit");
+                System.out.println("COMMANDS: go, look, add, link, take, drop, quit");
+
                 response = in.nextLine();
                 String[] words = response.split(" ");
                 String firstWord = words[0];
+                String remainingWords = combineWithSpace(words, 1);
+
                 if (firstWord.equals("go")) {
-                    prevRoom = currentRoom;
-                    currentRoom = currentRoom.getNeighbor(combineWithSpace(words, 1));
+                    if(!p.moveToRoom(combineWithSpace(words, 1))) System.err.println("Something went wrong!");;
                 }
                 else if (firstWord.equals("look")) {
                     System.out.println("DESCRIPTION: " + currentRoom.getDescription());
+                    System.out.println("ITEMS: " + currentRoom.displayItems());
                     System.out.println("YOU CAN GO TO: " + currentRoom.getNeighborNames());
                 }
-                else if (firstWord.equals("add")) currentRoom.addNeighbor(g.addNode(combineWithSpace(words, 1)));
-                else if (firstWord.equals("link")) currentRoom.addNeighbor(g.getNode(combineWithSpace(words, 1)));
+                else if (firstWord.equals("add")) currentRoom.addNeighbor(g.addNode(remainingWords));
+                else if (firstWord.equals("link")) currentRoom.addNeighbor(g.getNode(remainingWords));
+                else if (firstWord.equals("take")){
+                    p.addItem(currentRoom.removeItem(remainingWords));
+                    System.out.println(remainingWords + " has been taken.");
+                }
+                else if (firstWord.equals("drop")){
+                    currentRoom.addItem(p.removeItem(remainingWords));
+                    System.out.println(remainingWords + " has been dropped.");
+                }
                 else if (firstWord.equals("quit")) continue;
                 else System.out.println("INVALID COMMAND");
+
             } catch (Exception e){
                 System.err.println("Something went wrong!");
-                currentRoom = prevRoom;
             }
         } while (!response.equals("quit"));
     }

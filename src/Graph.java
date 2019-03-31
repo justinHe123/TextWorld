@@ -40,17 +40,20 @@ public class Graph {
         private String name;
         private HashMap<String, Node> neighbors;
         private String description;
+        private List<Item> items;
 
         public Node(String name){
             neighbors = new HashMap<>();
             this.name = name;
             description = "placeholder description";
+            items = new ArrayList<>();
         }
 
         public Node(String name, String description){
             neighbors = new HashMap<>();
             this.name = name;
             this.description = description;
+            items = new ArrayList<>();
         }
 
         public String getDescription(){
@@ -89,6 +92,45 @@ public class Graph {
 
         public String getName(){
             return this.name;
+        }
+
+        public List<Item> getItems(){
+            return items;
+        }
+
+        public String displayItems(){
+            String s = "";
+            for (Item i : items){
+                s += i.getName() + "; ";
+            }
+            if (s.length() == 0) return s;
+            return s.substring(0, s.length() - 2);
+        }
+
+        public void addItem(String name){
+            items.add(new Item(name));
+        }
+
+        public void addItem(String name, String description){
+            items.add(new Item(name, description));
+        }
+
+        public void addItem(Item item){
+            items.add(item);
+        }
+
+        public Item removeItem(String name){
+            for (int i = 0; i < items.size(); i++){
+                if (items.get(i).getName().equals(name)) return items.remove(i);
+            }
+            return null;
+        }
+
+        public boolean destroyItem(String name){
+            for (Item i : items){
+                if (i.getName().equals(name)) return items.remove(i);
+            }
+            return false;
         }
     }
 }
