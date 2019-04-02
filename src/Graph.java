@@ -81,6 +81,10 @@ public class Graph {
             return s.substring(0, s.length() - 1);
         }
 
+        public ArrayList<Node> getNeighbors(){
+            return new ArrayList<Node>(neighbors.values());
+        }
+
         /**
          * Returns neighbor whose name is name. Returns null otherwise
          * @param name name of neighboring node to return
