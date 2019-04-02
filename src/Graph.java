@@ -13,6 +13,10 @@ public class Graph {
         return n;
     }
 
+    public ArrayList<Node> getNodes(){
+        return new ArrayList<Node>(nodes.values());
+    }
+
     public Node addNode(String name, String description){
         Node n = new Node(name, description);
         nodes.put(name, n);
@@ -41,12 +45,10 @@ public class Graph {
         private HashMap<String, Node> neighbors;
         private String description;
         private List<Item> items;
+        private List<Mob> mobs;
 
         public Node(String name){
-            neighbors = new HashMap<>();
-            this.name = name;
-            description = "placeholder description";
-            items = new ArrayList<>();
+            this(name, "placeholder description");
         }
 
         public Node(String name, String description){
@@ -54,6 +56,7 @@ public class Graph {
             this.name = name;
             this.description = description;
             items = new ArrayList<>();
+            mobs = new ArrayList<>();
         }
 
         public String getDescription(){
@@ -135,6 +138,18 @@ public class Graph {
                 if (i.getName().equals(name)) return items.remove(i);
             }
             return false;
+        }
+
+        public List<Mob> getMobs(){
+            return mobs;
+        }
+
+        public void addMob(Mob mob){
+            mobs.add(mob);
+        }
+
+        public Mob removeMob(Mob mob){
+            return mobs.remove(mobs.indexOf(mob));
         }
     }
 }

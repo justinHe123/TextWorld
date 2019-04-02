@@ -22,6 +22,7 @@ public class Main {
         g.getNode("definitely not a room").addItem("GOD KILLER");
         g.getNode("DO NOT ENTER").addItem("Discarded Wrappers");
 
+        g.getNode("bedroom").addMob(new Chicken(g.getNode("bedroom")));
 
         //"game loop" where I get user input and move the player
         Player p = new Player("Your Boy", "The OG");
@@ -45,10 +46,19 @@ public class Main {
                 String remainingWords = combineWithSpace(words, 1);
 
                 if (firstWord.equals("go")) {
+                    for (Graph.Node node : g.getNodes()) {
+                        for (Mob mob : node.getMobs()) {
+                            mob.move(); //concurrent modification exception
+                        }
+                    }
                     if(!p.moveToRoom(combineWithSpace(words, 1))) System.err.println("Something went wrong!");;
                 }
                 else if (firstWord.equals("look")) {
-                    System.out.println("DESCRIPTION: " + currentRoom.getDescription());
+                    System.out.print("You hear: " );
+                    for (Mob mob : currentRoom.getMobs()){
+                        mob.act();
+                    }
+                    System.out.println("\nDESCRIPTION: " + currentRoom.getDescription());
                     System.out.println("ITEMS: " + currentRoom.displayItems());
                     System.out.println("YOU CAN GO TO: " + currentRoom.getNeighborNames());
                 }

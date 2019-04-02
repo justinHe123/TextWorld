@@ -2,11 +2,13 @@ public class Chicken extends Mob {
 
     public Chicken(Graph.Node currentNode){
         this.currentNode = currentNode;
+        name = "Chicken";
+        description = "A small, fat bird.";
     }
 
     @Override
     public void act() {
-        System.out.println("quack");
+        System.out.print("quack ");
     }
 
     @Override
