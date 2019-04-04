@@ -40,6 +40,23 @@ public class Graph {
         return nodes.get(name);
     }
 
+    public List<Mob> getAllMobs(){
+        List<Mob> mobs = new ArrayList<Mob>();
+        for (Node n : nodes.values()){
+            for (Mob mob : n.getMobs()){
+                mobs.add(mob);
+            }
+        }
+        return mobs;
+    }
+
+    public void moveAllMobs(){
+        List<Mob> mobs = getAllMobs();
+        for (Mob mob : mobs){
+            mob.move();;
+        }
+    }
+
     public class Node{
         private String name;
         private HashMap<String, Node> neighbors;
@@ -95,6 +112,11 @@ public class Graph {
          */
         public Node getNeighbor(String name){
             return neighbors.get(name);
+        }
+
+        public Node getRandomNeighbor(){
+            List<Node> neighborNodes = new ArrayList<>(neighbors.values());
+            return neighborNodes.get((int) (Math.random() * neighborNodes.size()));
         }
 
         public String getName(){

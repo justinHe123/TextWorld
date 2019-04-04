@@ -8,13 +8,25 @@ public abstract class Mob {
         return this.currentNode;
     };
 
+    public void moveTo(Graph.Node n){
+        currentNode.removeMob(this);
+        currentNode = n;
+        currentNode.addMob(this);
+    }
+
+    public Graph.Node findPlayer(Player p){
+        List<Graph.Node> visited = new ArrayList<>();
+        for (Graph.Node node : currentNode.getNeighbors()){
+            if (node == p.getCurrentRoom()) return node;
+        }
+        return null;
+    }
+
     public void moveRandom(){
         System.out.println("This method works");
         List<Graph.Node> neighbors = currentNode.getNeighbors();
         if (neighbors.size() != 0) {
-            currentNode.removeMob(this);
-            currentNode = neighbors.get((int) (Math.random() * neighbors.size()));
-            currentNode.addMob(this);
+            moveTo(currentNode.getRandomNeighbor());
         }
         System.out.println("MOB MOVED TO: " + currentNode.getName());
     }

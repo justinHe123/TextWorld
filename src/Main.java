@@ -11,11 +11,11 @@ public class Main {
         g.addNode("definitely not a room", "How did you get here??");
         g.addNode("DO NOT ENTER", "DID YOU READ THE SIGN???");
         g.addUndirectedEdge("hall", "closet");
-        g.addDirectedEdge("hall", "bedroom");
-        g.addDirectedEdge("bedroom", "hallway");
-        g.addDirectedEdge("hallway", "definitely not a room");
-        g.addDirectedEdge("hallway", "DO NOT ENTER");
-        g.addDirectedEdge("DO NOT ENTER", "hall");
+        g.addUndirectedEdge("hall", "bedroom");
+        g.addUndirectedEdge("bedroom", "hallway");
+        g.addUndirectedEdge("hallway", "definitely not a room");
+        g.addUndirectedEdge("hallway", "DO NOT ENTER");
+        g.addUndirectedEdge("DO NOT ENTER", "hall");
 
         g.getNode("hall").addItem("Key");
         g.getNode("bedroom").addItem("Vase");
@@ -38,20 +38,18 @@ public class Main {
                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 System.out.println("You are currently in the " + currentRoom.getName());
                 System.out.println("What would you like to do?");
-                System.out.println("COMMANDS: go, look, add, link, take, drop, quit");
+                System.out.println("COMMANDS: go, stay, look, add, link, take, drop, quit");
 
                 response = in.nextLine();
                 String[] words = response.split(" ");
                 String firstWord = words[0];
                 String remainingWords = combineWithSpace(words, 1);
 
-                if (firstWord.equals("go")) {
-                    for (Graph.Node node : g.getNodes()) {
-                        for (Mob mob : node.getMobs()) {
-                            mob.move(); //concurrent modification exception
-                        }
-                    }
-                    if(!p.moveToRoom(combineWithSpace(words, 1))) System.err.println("Something went wrong!");;
+                if (firstWord.equals("go")) { //find a way to get all mobs to act
+                    g.moveAllMobs();
+                    if(!p.moveToRoom(combineWithSpace(words, 1))) System.err.println("Something went wrong!");
+                } else if (firstWord.equals("stay")){
+                    g.moveAllMobs();
                 }
                 else if (firstWord.equals("look")) {
                     System.out.print("You hear: " );
@@ -77,6 +75,7 @@ public class Main {
 
             } catch (Exception e){
                 System.err.println("Something went wrong!");
+                e.printStackTrace();
             }
         } while (!response.equals("quit"));
     }
