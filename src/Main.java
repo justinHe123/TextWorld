@@ -4,25 +4,7 @@ public class Main {
     public static void main(String[] args) {
         //Build up graph of connected nodes
         Graph g = new Graph();
-        g.addNode("hall", "You are in a long hallway. You feel the great distance as a void staring deep into your soul.");
-        g.addNode("closet", "You are in a cramped closet. Someone needs to do their laundry, but you don't know who.");
-        g.addNode("bedroom", "You are in a bedroom. There are no beds.");
-        g.addNode("hallway", "You are in a hallway. Like a hall, but a different.");
-        g.addNode("definitely not a room", "How did you get here??");
-        g.addNode("DO NOT ENTER", "DID YOU READ THE SIGN???");
-        g.addUndirectedEdge("hall", "closet");
-        g.addUndirectedEdge("hall", "bedroom");
-        g.addUndirectedEdge("bedroom", "hallway");
-        g.addUndirectedEdge("hallway", "definitely not a room");
-        g.addUndirectedEdge("hallway", "DO NOT ENTER");
-        g.addUndirectedEdge("DO NOT ENTER", "hall");
-
-        g.getNode("hall").addItem("Key");
-        g.getNode("bedroom").addItem("Vase");
-        g.getNode("definitely not a room").addItem("GOD KILLER");
-        g.getNode("DO NOT ENTER").addItem("Discarded Wrappers");
-
-        g.getNode("bedroom").addMob(new Chicken(g.getNode("bedroom")));
+        init(g);
 
         //"game loop" where I get user input and move the player
         Player p = new Player("Your Boy", "The OG");
@@ -78,6 +60,28 @@ public class Main {
                 e.printStackTrace();
             }
         } while (!response.equals("quit"));
+    }
+
+    public static void init(Graph g){
+        g.addNode("hall", "You are in a long hallway. You feel the great distance as a void staring deep into your soul.");
+        g.addNode("closet", "You are in a cramped closet. Someone needs to do their laundry, but you don't know who.");
+        g.addNode("bedroom", "You are in a bedroom. There are no beds.");
+        g.addNode("hallway", "You are in a hallway. Like a hall, but a different.");
+        g.addNode("definitely not a room", "How did you get here??");
+        g.addNode("DO NOT ENTER", "DID YOU READ THE SIGN???");
+        g.addUndirectedEdge("hall", "closet");
+        g.addUndirectedEdge("hall", "bedroom");
+        g.addUndirectedEdge("bedroom", "hallway");
+        g.addUndirectedEdge("hallway", "definitely not a room");
+        g.addUndirectedEdge("hallway", "DO NOT ENTER");
+        g.addUndirectedEdge("DO NOT ENTER", "hall");
+
+        g.getNode("hall").addItem("Key");
+        g.getNode("bedroom").addItem("Vase");
+        g.getNode("definitely not a room").addItem("GOD KILLER");
+        g.getNode("DO NOT ENTER").addItem("Discarded Wrappers");
+
+        g.getNode("bedroom").addMob(new Chicken(g.getNode("bedroom")));
     }
 
     public static String combineWithSpace(String[] words, int start){
