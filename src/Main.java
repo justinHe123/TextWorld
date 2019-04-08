@@ -23,6 +23,7 @@ public class Main {
                 System.out.println("COMMANDS: go, stay, look, add, link, take, drop, quit");
 
                 response = in.nextLine();
+
                 String[] words = response.split(" ");
                 String firstWord = words[0];
                 String remainingWords = combineWithSpace(words, 1);

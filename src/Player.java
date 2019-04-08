@@ -51,9 +51,13 @@ public class Player {
     }
 
     public boolean moveToRoom(String name){
-        Graph.Node room = currentRoom.getNeighbor(name);
-        if (room != null){
-            setCurrentRoom(room);
+        Graph.Node node = currentRoom.getNeighbor(name);
+        return moveToRoom(node);
+    }
+
+    public boolean moveToRoom(Graph.Node node){
+        if (node != null) {
+            setCurrentRoom(node);
             return true;
         }
         return false;
