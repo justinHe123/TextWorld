@@ -1,7 +1,7 @@
 public class Chicken extends Mob {
 
-    public Chicken(Graph.Node currentNode){
-        this.currentNode = currentNode;
+    public Chicken(Level.Room currentRoom){
+        this.currentRoom = currentRoom;
         name = "Chicken";
         description = "A small, fat bird.";
     }

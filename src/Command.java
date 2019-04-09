@@ -1,4 +1,4 @@
 public interface Command {
-    public void init(String userString);
+    public void init(Player p, String userString);
     public boolean execute();
 }

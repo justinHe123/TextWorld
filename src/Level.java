@@ -1,48 +1,48 @@
 import java.util.*;
 
-public class Graph {
-    private HashMap<String, Node> nodes;
+public class Level {
+    private HashMap<String, Room> rooms;
 
-    public Graph(){
-        nodes = new HashMap<>();
+    public Level(){
+        rooms = new HashMap<>();
     }
 
-    public Node addNode(String name){
-        Node n = new Node(name);
-        nodes.put(name, n);
+    public Room addRoom(String name){
+        Room n = new Room(name);
+        rooms.put(name, n);
         return n;
     }
 
-    public ArrayList<Node> getNodes(){
-        return new ArrayList<Node>(nodes.values());
+    public ArrayList<Room> getRoom(){
+        return new ArrayList<Room>(rooms.values());
     }
 
-    public Node addNode(String name, String description){
-        Node n = new Node(name, description);
-        nodes.put(name, n);
+    public Room addRoom(String name, String description){
+        Room n = new Room(name, description);
+        rooms.put(name, n);
         return n;
     }
 
     public void addDirectedEdge(String name1, String name2){
-        Node n1 = getNode(name1);
-        Node n2 = getNode(name2);
+        Room n1 = getRoom(name1);
+        Room n2 = getRoom(name2);
         n1.addNeighbor(n2);
     }
 
     public void addUndirectedEdge(String name1, String name2){
-        Node n1 = getNode(name1);
-        Node n2 = getNode(name2);
+        Room n1 = getRoom(name1);
+        Room n2 = getRoom(name2);
         n1.addNeighbor(n2);
         n2.addNeighbor(n1);
     }
 
-    public Node getNode(String name){
-        return nodes.get(name);
+    public Room getRoom(String name){
+        return rooms.get(name);
     }
 
     public List<Mob> getAllMobs(){
         List<Mob> mobs = new ArrayList<Mob>();
-        for (Node n : nodes.values()){
+        for (Room n : rooms.values()){
             for (Mob mob : n.getMobs()){
                 mobs.add(mob);
             }
@@ -57,18 +57,18 @@ public class Graph {
         }
     }
 
-    public class Node{
+    public class Room {
         private String name;
-        private HashMap<String, Node> neighbors;
+        private HashMap<String, Room> neighbors;
         private String description;
         private List<Item> items;
         private List<Mob> mobs;
 
-        public Node(String name){
+        public Room(String name){
             this(name, "placeholder description");
         }
 
-        public Node(String name, String description){
+        public Room(String name, String description){
             neighbors = new HashMap<>();
             this.name = name;
             this.description = description;
@@ -84,7 +84,7 @@ public class Graph {
             description = d;
         }
 
-        public void addNeighbor(Node n){
+        public void addNeighbor(Room n){
             neighbors.put(n.getName(), n);
         }
 
@@ -101,8 +101,8 @@ public class Graph {
             return s.substring(0, s.length() - 1);
         }
 
-        public ArrayList<Node> getNeighbors(){
-            return new ArrayList<Node>(neighbors.values());
+        public ArrayList<Room> getNeighbors(){
+            return new ArrayList<Room>(neighbors.values());
         }
 
         /**
@@ -110,13 +110,13 @@ public class Graph {
          * @param name name of neighboring node to return
          * @return returns neighboring node with correct name
          */
-        public Node getNeighbor(String name){
+        public Room getNeighbor(String name){
             return neighbors.get(name);
         }
 
-        public Node getRandomNeighbor(){
-            List<Node> neighborNodes = new ArrayList<>(neighbors.values());
-            return neighborNodes.get((int) (Math.random() * neighborNodes.size()));
+        public Room getRandomNeighbor(){
+            List<Room> neighborRooms = new ArrayList<>(neighbors.values());
+            return neighborRooms.get((int) (Math.random() * neighborRooms.size()));
         }
 
         public String getName(){

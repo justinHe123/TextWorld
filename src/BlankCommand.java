@@ -1,6 +1,6 @@
 public class BlankCommand implements Command {
     @Override
-    public void init(String userString) {
+    public void init(Player p, String userString) {
 
     }
 

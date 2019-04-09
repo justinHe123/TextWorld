@@ -2,48 +2,48 @@ import java.util.*;
 
 public class DijkstraAlgorithm {
 
-    private final List<Graph.Node> nodes;
-    private Set<Graph.Node> settledNodes;
-    private Set<Graph.Node> unSettledNodes;
-    private Map<Graph.Node, Graph.Node> predecessors;
-    private Map<Graph.Node, Integer> distance;
+    private final List<Level.Room> rooms;
+    private Set<Level.Room> settledRooms;
+    private Set<Level.Room> unSettledRooms;
+    private Map<Level.Room, Level.Room> predecessors;
+    private Map<Level.Room, Integer> distance;
 
-    public DijkstraAlgorithm(Graph graph) {
-        this.nodes = new ArrayList<Graph.Node>(graph.getNodes());
+    public DijkstraAlgorithm(Level level) {
+        this.rooms = new ArrayList<Level.Room>(level.getNodes());
     }
 
-    public void execute(Graph.Node source) {
-        settledNodes = new HashSet<Graph.Node>();
-        unSettledNodes = new HashSet<Graph.Node>();
-        distance = new HashMap<Graph.Node, Integer>();
-        predecessors = new HashMap<Graph.Node, Graph.Node>();
+    public void execute(Level.Room source) {
+        settledRooms = new HashSet<Level.Room>();
+        unSettledRooms = new HashSet<Level.Room>();
+        distance = new HashMap<Level.Room, Integer>();
+        predecessors = new HashMap<Level.Room, Level.Room>();
 
         distance.put(source, 0);
-        unSettledNodes.add(source);
+        unSettledRooms.add(source);
 
-        while (unSettledNodes.size() > 0) {
-            Graph.Node n = getMinimum(unSettledNodes);
-            settledNodes.add(n);
-            unSettledNodes.remove(n);
+        while (unSettledRooms.size() > 0) {
+            Level.Room n = getMinimum(unSettledRooms);
+            settledRooms.add(n);
+            unSettledRooms.remove(n);
             findMinimalDistances(n);
         }
     }
 
-    private void findMinimalDistances(Graph.Node node) {
-        List<Graph.Node> neighbors = new ArrayList<>(node.getNeighbors());
-        for (Graph.Node target : neighbors) {
-            if (getShortestDistance(target) > getShortestDistance(node)) {
-                distance.put(target, getShortestDistance(node));
-                predecessors.put(target, node);
-                unSettledNodes.add(target);
+    private void findMinimalDistances(Level.Room room) {
+        List<Level.Room> neighbors = new ArrayList<>(room.getNeighbors());
+        for (Level.Room target : neighbors) {
+            if (getShortestDistance(target) > getShortestDistance(room)) {
+                distance.put(target, getShortestDistance(room));
+                predecessors.put(target, room);
+                unSettledRooms.add(target);
             }
         }
     }
 
 
-    private Graph.Node getMinimum(Set<Graph.Node> nodes) {
-        Graph.Node minimum = null;
-        for (Graph.Node n : nodes) {
+    private Level.Room getMinimum(Set<Level.Room> rooms) {
+        Level.Room minimum = null;
+        for (Level.Room n : rooms) {
             if (minimum == null) {
                 minimum = n;
             } else if (getShortestDistance(n) < getShortestDistance(minimum)) {
@@ -53,7 +53,7 @@ public class DijkstraAlgorithm {
         return minimum;
     }
 
-    private int getShortestDistance(Graph.Node n) {
+    private int getShortestDistance(Level.Room n) {
         Integer d = distance.get(n);
         if (d == null) {
             return Integer.MAX_VALUE;
@@ -62,7 +62,7 @@ public class DijkstraAlgorithm {
         }
     }
 
-    private boolean isSettled(Graph.Node n) {
-        return settledNodes.contains(n);
+    private boolean isSettled(Level.Room n) {
+        return settledRooms.contains(n);
     }
 }

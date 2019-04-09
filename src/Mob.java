@@ -1,41 +1,41 @@
 import java.util.*;
 
 public abstract class Mob {
-    protected Graph.Node currentNode;
+    protected Level.Room currentRoom;
     protected String name, description;
 
-    public Graph.Node getCurrentNode(){
-        return this.currentNode;
+    public Level.Room getCurrentRoom(){
+        return this.currentRoom;
     };
 
-    public void moveTo(Graph.Node n){
-        currentNode.removeMob(this);
-        currentNode = n;
-        currentNode.addMob(this);
+    public void moveTo(Level.Room n){
+        currentRoom.removeMob(this);
+        currentRoom = n;
+        currentRoom.addMob(this);
     }
 
-    public Graph.Node findPlayer(Player p){
-        List<Graph.Node> visited = new ArrayList<>();
-        List<Graph.Node> unvisitedNeighbors = new ArrayList<>();
-        if (currentNode == p.getCurrentRoom()) return currentNode;
-        visited.add(currentNode);
+    public Level.Room findPlayer(Player p){
+        List<Level.Room> visited = new ArrayList<>();
+        List<Level.Room> unvisitedNeighbors = new ArrayList<>();
+        if (currentRoom == p.getCurrentRoom()) return currentRoom;
+        visited.add(currentRoom);
 
-        for (Graph.Node node : currentNode.getNeighbors()){
-            if (!visited.contains(node)) {
-                if (node == p.getCurrentRoom()) return node;
+        for (Level.Room room : currentRoom.getNeighbors()){
+            if (!visited.contains(room)) {
+                if (room == p.getCurrentRoom()) return room;
             } else {
-                visited.add(node);
-                unvisitedNeighbors.add(node);
+                visited.add(room);
+                unvisitedNeighbors.add(room);
             }
         }
 
         return findPlayer(p, visited, unvisitedNeighbors);
     }
 
-    public Graph.Node findPlayer(Player p, List<Graph.Node> visited, List<Graph.Node> toVisit){
-        List<Graph.Node> unvisitedNeighbors = new ArrayList<>();
-        for (Graph.Node nA : toVisit){
-            for (Graph.Node nB : nA.getNeighbors()){
+    public Level.Room findPlayer(Player p, List<Level.Room> visited, List<Level.Room> toVisit){
+        List<Level.Room> unvisitedNeighbors = new ArrayList<>();
+        for (Level.Room nA : toVisit){
+            for (Level.Room nB : nA.getNeighbors()){
                 if (!visited.contains(nB)){
                     if (nB == p.getCurrentRoom()) return nB;
                 } else {
@@ -51,11 +51,11 @@ public abstract class Mob {
 
     public void moveRandom(){
         System.out.println("This method works");
-        List<Graph.Node> neighbors = currentNode.getNeighbors();
+        List<Level.Room> neighbors = currentRoom.getNeighbors();
         if (neighbors.size() != 0) {
-            moveTo(currentNode.getRandomNeighbor());
+            moveTo(currentRoom.getRandomNeighbor());
         }
-        System.out.println("MOB MOVED TO: " + currentNode.getName());
+        System.out.println("MOB MOVED TO: " + currentRoom.getName());
     }
 
     public abstract void move();

@@ -1,7 +1,7 @@
 public class PopStar extends Mob {
 
-    public PopStar(Graph.Node currentNode){
-        this.currentNode = currentNode;
+    public PopStar(Level.Room currentRoom){
+        this.currentRoom = currentRoom;
         name = "Pop Star";
         description = "死死死死死";
     }
@@ -10,7 +10,7 @@ public class PopStar extends Mob {
     public void move() {
     }
 
-    public Graph.Node findPlayer(Player p) {
+    public Level.Room findPlayer(Player p) {
         return p.getCurrentRoom();
     }
 

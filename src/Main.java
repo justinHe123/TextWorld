@@ -3,12 +3,12 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) {
         //Build up graph of connected nodes
-        Graph g = new Graph();
+        Level g = new Level();
         init(g);
 
         //"game loop" where I get user input and move the player
         Player p = new Player("Your Boy", "The OG");
-        p.setCurrentRoom(g.getNode("hall"));
+        p.setCurrentRoom(g.getRoom("hall"));
 
         String response = "";
         Scanner in = new Scanner(System.in);
@@ -16,7 +16,7 @@ public class Main {
         do{
             //display the room and the exits
             try {
-                Graph.Node currentRoom = p.getCurrentRoom();
+                Level.Room currentRoom = p.getCurrentRoom();
                 System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
                 System.out.println("You are currently in the " + currentRoom.getName());
                 System.out.println("What would you like to do?");
@@ -43,8 +43,8 @@ public class Main {
                     System.out.println("ITEMS: " + currentRoom.displayItems());
                     System.out.println("YOU CAN GO TO: " + currentRoom.getNeighborNames());
                 }
-                else if (firstWord.equals("add")) currentRoom.addNeighbor(g.addNode(remainingWords));
-                else if (firstWord.equals("link")) currentRoom.addNeighbor(g.getNode(remainingWords));
+                else if (firstWord.equals("add")) currentRoom.addNeighbor(g.addRoom(remainingWords));
+                else if (firstWord.equals("link")) currentRoom.addNeighbor(g.getRoom(remainingWords));
                 else if (firstWord.equals("take")){
                     p.addItem(currentRoom.removeItem(remainingWords));
                     System.out.println(remainingWords + " has been taken.");
@@ -63,13 +63,13 @@ public class Main {
         } while (!response.equals("quit"));
     }
 
-    public static void init(Graph g){
-        g.addNode("hall", "You are in a long hallway. You feel the great distance as a void staring deep into your soul.");
-        g.addNode("closet", "You are in a cramped closet. Someone needs to do their laundry, but you don't know who.");
-        g.addNode("bedroom", "You are in a bedroom. There are no beds.");
-        g.addNode("hallway", "You are in a hallway. Like a hall, but a different.");
-        g.addNode("definitely not a room", "How did you get here??");
-        g.addNode("DO NOT ENTER", "DID YOU READ THE SIGN???");
+    public static void init(Level g){
+        g.addRoom("hall", "You are in a long hallway. You feel the great distance as a void staring deep into your soul.");
+        g.addRoom("closet", "You are in a cramped closet. Someone needs to do their laundry, but you don't know who.");
+        g.addRoom("bedroom", "You are in a bedroom. There are no beds.");
+        g.addRoom("hallway", "You are in a hallway. Like a hall, but a different.");
+        g.addRoom("definitely not a room", "How did you get here??");
+        g.addRoom("DO NOT ENTER", "DID YOU READ THE SIGN???");
         g.addUndirectedEdge("hall", "closet");
         g.addUndirectedEdge("hall", "bedroom");
         g.addUndirectedEdge("bedroom", "hallway");
@@ -77,12 +77,12 @@ public class Main {
         g.addUndirectedEdge("hallway", "DO NOT ENTER");
         g.addUndirectedEdge("DO NOT ENTER", "hall");
 
-        g.getNode("hall").addItem("Key");
-        g.getNode("bedroom").addItem("Vase");
-        g.getNode("definitely not a room").addItem("GOD KILLER");
-        g.getNode("DO NOT ENTER").addItem("Discarded Wrappers");
+        g.getRoom("hall").addItem("Key");
+        g.getRoom("bedroom").addItem("Vase");
+        g.getRoom("definitely not a room").addItem("GOD KILLER");
+        g.getRoom("DO NOT ENTER").addItem("Discarded Wrappers");
 
-        g.getNode("bedroom").addMob(new Chicken(g.getNode("bedroom")));
+        g.getRoom("bedroom").addMob(new Chicken(g.getRoom("bedroom")));
     }
 
     public static String combineWithSpace(String[] words, int start){
@@ -91,5 +91,23 @@ public class Main {
             s += words[i] + " ";
         }
         return s.trim();
+    }
+
+    public static Command parseCommand(String name) {
+        int firstSpace = name.indexOf(" ");
+        if (firstSpace == -1) return new BlankCommand();
+
+        String commandWord = name.substring(0, firstSpace);
+
+        Class cls = null;
+        try {
+            cls = Class.forName(commandWord);
+            Command obj = (Command) cls.newInstance();
+
+            return obj;
+        } catch (Exception e) {
+            System.out.println("There was a problem creating a command object for " + name);
+            return new BlankCommand();
+        }
     }
 }

@@ -1,21 +1,21 @@
 import java.util.ArrayList;
 
 public class Path {
-    private ArrayList<Graph.Node> path;
+    private ArrayList<Level.Room> path;
 
     public Path(){
         path = new ArrayList<>();
     }
 
     public Path(Path path){
-        this.path = (ArrayList<Graph.Node>)path.getPath().clone();
+        this.path = (ArrayList<Level.Room>)path.getPath().clone();
     }
 
-    public ArrayList<Graph.Node> getPath(){
+    public ArrayList<Level.Room> getPath(){
         return path;
     }
 
-    public void add(Graph.Node n){
+    public void add(Level.Room n){
         path.add(n);
     }
 }

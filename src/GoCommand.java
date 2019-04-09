@@ -8,7 +8,8 @@ public class GoCommand implements Command {
     }
 
     @Override
-    public void init(String userString) {
+    public void init(Player p, String userString) {
+        this.p = p;
         this.destination = combineWithSpace(userString, 1);
     }
 

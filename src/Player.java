@@ -3,7 +3,7 @@ import java.util.*;
 public class Player {
     private String name, description;
     private List<Item> items;
-    private Graph.Node currentRoom;
+    private Level.Room currentRoom;
 
     public Player (String name, String description){
         this.name = name;
@@ -42,22 +42,22 @@ public class Player {
         return s.substring(0, s.length() - 2);
     }
 
-    public Graph.Node getCurrentRoom(){
+    public Level.Room getCurrentRoom(){
         return currentRoom;
     }
 
-    public void setCurrentRoom(Graph.Node newRoom){
+    public void setCurrentRoom(Level.Room newRoom){
         currentRoom = newRoom;
     }
 
     public boolean moveToRoom(String name){
-        Graph.Node node = currentRoom.getNeighbor(name);
-        return moveToRoom(node);
+        Level.Room room = currentRoom.getNeighbor(name);
+        return moveToRoom(room);
     }
 
-    public boolean moveToRoom(Graph.Node node){
-        if (node != null) {
-            setCurrentRoom(node);
+    public boolean moveToRoom(Level.Room room){
+        if (room != null) {
+            setCurrentRoom(room);
             return true;
         }
         return false;
