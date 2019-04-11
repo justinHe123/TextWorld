@@ -18,6 +18,7 @@ public class LookCommand implements Command {
         }
         System.out.println("\nDESCRIPTION: " + currentRoom.getDescription());
         System.out.println("ITEMS: " + currentRoom.displayItems());
+        System.out.println("INVENTORY: " + p.displayInventory());
         System.out.println("YOU CAN GO TO: " + currentRoom.getNeighborNames());
         return false;
     }
