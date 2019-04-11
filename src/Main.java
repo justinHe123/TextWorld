@@ -108,8 +108,9 @@ public class Main {
 
     public static Command parseCommand(String name) {
         int firstSpace = name.indexOf(" ");
-
-        String commandWord = name.substring(0, firstSpace);
+        String commandWord;
+        if (firstSpace == -1) commandWord = convertToCommand(name);
+        else commandWord = convertToCommand(name.substring(0, firstSpace));
 
         Class cls = null;
         try {
