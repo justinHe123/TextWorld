@@ -1,22 +1,23 @@
 public class PopStar extends Mob {
+    Player p;
 
-    public PopStar(Level.Room currentRoom){
+
+    public PopStar(Level.Room currentRoom, Player p){
         this.currentRoom = currentRoom;
         name = "Pop Star";
         description = "死死死死死";
+        this.p = p;
     }
 
     @Override
     public void move() {
-    }
-
-    public Level.Room findPlayer(Player p) {
-        return p.getCurrentRoom();
+        Level.Room sharedRoom = findPlayer(p);
+        if (p != null) moveTo(sharedRoom);
     }
 
     @Override
     public void act() {
-
+        System.out.println("gimme ur money");
     }
 
     @Override

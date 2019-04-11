@@ -15,39 +15,15 @@ public abstract class Mob {
     }
 
     public Level.Room findPlayer(Player p){
-        List<Level.Room> visited = new ArrayList<>();
-        List<Level.Room> unvisitedNeighbors = new ArrayList<>();
-        if (currentRoom == p.getCurrentRoom()) return currentRoom;
-        visited.add(currentRoom);
-
-        for (Level.Room room : currentRoom.getNeighbors()){
-            if (!visited.contains(room)) {
-                if (room == p.getCurrentRoom()) return room;
-            } else {
-                visited.add(room);
-                unvisitedNeighbors.add(room);
-            }
+        Level.Room pRoom = p.getCurrentRoom();
+        List<Level.Room> pNeighbors = pRoom.getNeighbors();
+        List<Level.Room> neighbors = currentRoom.getNeighbors();
+        if (neighbors.contains(pRoom)) return pRoom;
+        for (Level.Room room : neighbors){
+            if (pNeighbors.contains(room)) return room;
         }
-
-        return findPlayer(p, visited, unvisitedNeighbors);
+        return null;
     }
-
-    public Level.Room findPlayer(Player p, List<Level.Room> visited, List<Level.Room> toVisit){
-        List<Level.Room> unvisitedNeighbors = new ArrayList<>();
-        for (Level.Room nA : toVisit){
-            for (Level.Room nB : nA.getNeighbors()){
-                if (!visited.contains(nB)){
-                    if (nB == p.getCurrentRoom()) return nB;
-                } else {
-                    visited.add(nB);
-                    unvisitedNeighbors.add(nB);
-                }
-            }
-        }
-        if (unvisitedNeighbors.size() == 0) return null;
-        else return findPlayer(p, visited, unvisitedNeighbors);
-    }
-    //how do we track the path?
 
     public void moveRandom(){
         System.out.println("This method works");
