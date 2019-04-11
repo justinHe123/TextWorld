@@ -15,7 +15,10 @@ public class DropCommand implements Command {
     public boolean execute() {
         Level.Room currentRoom = p.getCurrentRoom();
         Item i = p.removeItem(itemName);
-        if (i == null) return false;
+        if (i == null){
+            System.err.println("You don't have that item!");
+            return false;
+        }
         currentRoom.addItem(i);
         return true;
     }

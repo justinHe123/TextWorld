@@ -15,7 +15,10 @@ public class TakeCommand implements Command{
     public boolean execute() {
         Level.Room currentRoom = p.getCurrentRoom();
         Item i = currentRoom.removeItem(itemName);
-        if (i == null) return false;
+        if (i == null) {
+            System.err.println("The room doesn't have that item!");
+            return false;
+        }
         p.addItem(i);
         return true;
     }

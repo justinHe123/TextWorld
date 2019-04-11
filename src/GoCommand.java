@@ -13,7 +13,9 @@ public class GoCommand implements Command {
 
     @Override
     public boolean execute() {
-        return p.moveToRoom(destination);
+        boolean moved = p.moveToRoom(destination);
+        if (!moved) System.err.println("You can't move there!");
+        return moved;
     }
 
     private static String combineWithSpace(String userString, int start){
