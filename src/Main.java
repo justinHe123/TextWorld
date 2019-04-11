@@ -132,6 +132,7 @@ public class Main {
     }
 
     public static String convertToCommand(String commandWord) {
+        commandWord.replace("\n", "");
         char[] arr = commandWord.toCharArray();
         arr[0] = (char) ((int) arr[0] - 32);
         return arr[0] + commandWord.substring(1) + "Command";
