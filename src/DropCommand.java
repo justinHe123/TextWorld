@@ -2,13 +2,13 @@ public class DropCommand implements Command {
     Player p;
     String itemName;
 
-    public DropCommand(Player p, String itenName) {
+    public DropCommand(Player p, String itemName) {
         this.p = p;
         this.itemName = itemName;
     }
 
     @Override
-    public void init(Player p, String itenName) {
+    public void init(Player p, String itemName) {
         this.p = p;
         this.itemName = itemName;
     }

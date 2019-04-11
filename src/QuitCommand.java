@@ -6,6 +6,6 @@ public class QuitCommand implements Command {
 
     @Override
     public boolean execute() {
-        return false;
+        return true;
     }
 }
