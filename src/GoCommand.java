@@ -6,9 +6,9 @@ public class GoCommand implements Command {
     }
 
     @Override
-    public void init(Player p, String userString) {
+    public void init(Player p, String destination) {
         this.p = p;
-        this.destination = combineWithSpace(userString, 1);
+        this.destination = destination;
     }
 
     @Override
@@ -16,14 +16,5 @@ public class GoCommand implements Command {
         boolean moved = p.moveToRoom(destination);
         if (!moved) System.err.println("You can't move there!");
         return moved;
-    }
-
-    private static String combineWithSpace(String userString, int start){
-        String[] words = userString.split(" ");
-        String s = "";
-        for (int i = start; i < words.length; i++){
-            s += words[i] + " ";
-        }
-        return s.trim();
     }
 }
