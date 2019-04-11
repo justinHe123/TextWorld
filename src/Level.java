@@ -13,7 +13,7 @@ public class Level {
         return n;
     }
 
-    public ArrayList<Room> getRoom(){
+    public ArrayList<Room> getRooms(){
         return new ArrayList<Room>(rooms.values());
     }
 
