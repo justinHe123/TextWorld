@@ -17,7 +17,7 @@ public class PopStar extends Mob {
 
     @Override
     public void act() {
-        System.out.println("gimme ur money");
+        System.out.println("dame tu cosita");
     }
 
     @Override
