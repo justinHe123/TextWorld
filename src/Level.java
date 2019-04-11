@@ -58,9 +58,8 @@ public class Level {
     }
 
     public class Room {
-        private String name;
+        private String name, description;
         private HashMap<String, Room> neighbors;
-        private String description;
         private List<Item> items;
         private List<Mob> mobs;
 
