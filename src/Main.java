@@ -20,8 +20,8 @@ public class Main {
             int spaceIndex = response.indexOf(" ");
             c.init(p, response.substring(spaceIndex + 1)); //no if statemnt needed bc -1 + 1 = 0
             if (c instanceof QuitCommand) break;
-            c.execute();
-            g.moveAllMobs();
+            boolean action = c.execute();
+            if(action) g.moveAllMobs();
 
         }
 
@@ -119,7 +119,7 @@ public class Main {
 
             return obj;
         } catch (Exception e) {
-            System.out.println("There was a problem creating a command object for " + name);
+            System.err.println("There was a problem creating a command object for " + name);
             return new BlankCommand();
         }
     }
