@@ -9,7 +9,7 @@ public class DijkstraAlgorithm {
     private Map<Level.Room, Integer> distance;
 
     public DijkstraAlgorithm(Level level) {
-        this.rooms = new ArrayList<Level.Room>(level.getNodes());
+        this.rooms = new ArrayList<Level.Room>(level.getRooms());
     }
 
     public void execute(Level.Room source) {
