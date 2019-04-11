@@ -26,12 +26,11 @@ public abstract class Mob {
     }
 
     public void moveRandom(){
-        System.out.println("This method works");
         List<Level.Room> neighbors = currentRoom.getNeighbors();
         if (neighbors.size() != 0) {
             moveTo(currentRoom.getRandomNeighbor());
         }
-        System.out.println("MOB MOVED TO: " + currentRoom.getName());
+        System.out.println(name + " moved to: " + currentRoom.getName());
     }
 
     public abstract void move();
