@@ -12,7 +12,7 @@ public class Main {
 
         String response = "";
         Scanner in = new Scanner(System.in);
-        while(true) {
+        while (true) {
             Level.Room currentRoom = p.getCurrentRoom();
             printInfo(currentRoom);
             response = in.nextLine();
@@ -21,59 +21,9 @@ public class Main {
             c.init(p, response.substring(spaceIndex + 1)); //no if statemnt needed bc -1 + 1 = 0
             if (c instanceof QuitCommand) break;
             boolean action = c.execute();
-            if(action) g.moveAllMobs();
-
+            if (action) g.moveAllMobs();
         }
 
-
-//        do{
-//            //display the room and the exits
-//            try {
-//                Level.Room currentRoom = p.getCurrentRoom();
-//                System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
-//                System.out.println("You are currently in the " + currentRoom.getName());
-//                System.out.println("What would you like to do?");
-//                System.out.println("COMMANDS: go, stay, look, add, link, take, drop, quit");
-//
-//                response = in.nextLine();
-//
-//                String[] words = response.split(" ");
-//                String firstWord = words[0];
-//                String remainingWords = combineWithSpace(words, 1);
-//
-//                if (firstWord.equals("go")) { //find a way to get all mobs to act
-//                    g.moveAllMobs();
-//                    if(!p.moveToRoom(combineWithSpace(words, 1))) System.err.println("Something went wrong!");
-//                } else if (firstWord.equals("stay")){
-//                    g.moveAllMobs();
-//                }
-//                else if (firstWord.equals("look")) {
-//                    System.out.print("You hear: " );
-//                    for (Mob mob : currentRoom.getMobs()){
-//                        mob.act();
-//                    }
-//                    System.out.println("\nDESCRIPTION: " + currentRoom.getDescription());
-//                    System.out.println("ITEMS: " + currentRoom.displayItems());
-//                    System.out.println("YOU CAN GO TO: " + currentRoom.getNeighborNames());
-//                }
-//                else if (firstWord.equals("add")) currentRoom.addNeighbor(g.addRoom(remainingWords));
-//                else if (firstWord.equals("link")) currentRoom.addNeighbor(g.getRoom(remainingWords));
-//                else if (firstWord.equals("take")){
-//                    p.addItem(currentRoom.removeItem(remainingWords));
-//                    System.out.println(remainingWords + " has been taken.");
-//                }
-//                else if (firstWord.equals("drop")){
-//                    currentRoom.addItem(p.removeItem(remainingWords));
-//                    System.out.println(remainingWords + " has been dropped.");
-//                }
-//                else if (firstWord.equals("quit")) continue;
-//                else System.out.println("INVALID COMMAND");
-//
-//            } catch (Exception e){
-//                System.err.println("Something went wrong!");
-//                e.printStackTrace();
-//            }
-//        } while (!response.equals("quit"));
     }
 
     public static void init(Level g) {
@@ -124,7 +74,7 @@ public class Main {
         }
     }
 
-    public static void printInfo(Level.Room currentRoom){
+    public static void printInfo(Level.Room currentRoom) {
         System.out.println("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~");
         System.out.println("You are currently in the " + currentRoom.getName());
         System.out.println("What would you like to do?");
