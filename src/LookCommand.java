@@ -1,7 +1,7 @@
 public class LookCommand implements Command {
     Player p;
-    public LookCommand(Player p, String userString) {
-        this.p = p;
+
+    public LookCommand() {
     }
 
     @Override

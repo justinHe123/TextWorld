@@ -2,9 +2,7 @@ public class TakeCommand implements Command{
     Player p;
     String itemName;
 
-    public TakeCommand(Player p, String itemName) {
-        this.p = p;
-        this.itemName = itemName;
+    public TakeCommand() {
     }
 
     @Override

@@ -2,9 +2,7 @@ public class DropCommand implements Command {
     Player p;
     String itemName;
 
-    public DropCommand(Player p, String itemName) {
-        this.p = p;
-        this.itemName = itemName;
+    public DropCommand() {
     }
 
     @Override

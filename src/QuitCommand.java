@@ -1,4 +1,8 @@
 public class QuitCommand implements Command {
+    public QuitCommand(){
+
+    }
+
     @Override
     public void init(Player p, String userString) {
 

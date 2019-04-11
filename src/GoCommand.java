@@ -2,9 +2,7 @@ public class GoCommand implements Command {
     Player p;
     String destination;
 
-    public GoCommand(Player p, String destination){
-        this.p = p;
-        this.destination = destination;
+    public GoCommand(){
     }
 
     @Override
